@@ -16,8 +16,15 @@ Zip a directory.
 
 ```js
 var zipDir = require('@yaws/zip-dir')
-var code = zipDir('./')
-s3.putObject({Bucket: 'code', Key: '[sha1]', Body: code})
+var co = require('co')
+var hash = require('hasha')
+
+co(function * () {
+  var code = yield zipDir('./')
+  var hash = hasha(code, {alrogirthm: 'sha256'})
+  s3.putObject({Bucket: 'code', Key: hash, Body: code})
+})
+
 ```
 
 ## API
