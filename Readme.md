@@ -21,7 +21,7 @@ var hash = require('hasha')
 
 co(function * () {
   var code = yield zipDir('./')
-  var hash = hasha(code, {alrogirthm: 'sha256'})
+  var hash = hasha(code, {encoding: 'base64', alrogirthm: 'sha256'})
   s3.putObject({Bucket: 'code', Key: hash, Body: code})
 })
 
