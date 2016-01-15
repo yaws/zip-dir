@@ -3,10 +3,7 @@
  */
 
 import archiver from 'archiver'
-import glob from 'glob'
-import path from 'path'
-import fs from 'fs'
-
+import concat from 'concat-stream'
 
 /**
  * Zip a directory
@@ -15,12 +12,13 @@ import fs from 'fs'
  */
 
 function zipDir (dir) {
-  let archive = archiver('zip')
-  archive.directory(dir, false)
-  setTimeout(function () {
+  return new Promise(function (resolve, reject) {
+    let archive = archiver('zip')
+    archive.on('error', reject)
+    archive.directory(dir, false)
+    archive.pipe(concat(resolve))
     archive.finalize()
   })
-  return archive
 }
 
 /**
