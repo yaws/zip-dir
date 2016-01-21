@@ -4,6 +4,7 @@
 
 import archiver from 'archiver'
 import concat from 'concat-stream'
+import forEach from '@f/foreach'
 
 /**
  * Zip a directory
@@ -11,12 +12,18 @@ import concat from 'concat-stream'
  * @return {Stream}
  */
 
-function zipDir (dir) {
+function zipDir (dir, files) {
   return new Promise(function (resolve, reject) {
     let archive = archiver('zip')
     archive.on('error', reject)
-    archive.directory(dir, false)
     archive.pipe(concat(resolve))
+
+    archive.directory(dir, false)
+
+    forEach(function (source, name) {
+      archive.file(source, {name: name})
+    }, files)
+
     archive.finalize()
   })
 }
