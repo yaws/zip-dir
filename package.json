@@ -2,7 +2,7 @@
   "name": "@yaws/zip-dir",
   "description": "Zip a directory.",
   "repository": "git://github.com/yaws/zip-dir.git",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
