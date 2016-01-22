@@ -25,15 +25,32 @@ co(function * () {
   s3.putObject({Bucket: 'code', Key: hash, Body: code})
 })
 
+// or
+
+co(function * () {
+  var code = yield zipDir(content)
+  var hash = hasha(code, {encoding: 'base64', alrogirthm: 'sha256'})
+  s3.putObject({Bucket: 'code', Key: hash, Body: code})
+})
+
+function content (zip) {
+  zip.directory('./')
+  zip.append('{"USER": "josh"}', '.env.json')
+}
+
 ```
 
 ## API
 
-### zipDir(dir)
+### zipDir(src)
 
-- `dir` - directory to zip
+- `src` {String} - Path to the directory to zip.
+- `src` {Function} - The function defines the sources using the zip api that is passed to it. The functions signature is `src(zip)`. `zip` has three methods:
+    - `directory(path)`
+    - `file(path, name)`
+    - `append(src, name)`
 
-**Returns:** a readable stream of the zipped contents of the directory
+**Returns:** a promise for a buffer of the zipped contents
 
 ## License
 
