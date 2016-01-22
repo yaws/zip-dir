@@ -28,6 +28,8 @@ test('should zip contents defined by function', (t) => {
     t.equal(zip.file('index.js').asText(), "module.exports = 'foo'\n")
     t.equal(zip.file('main.js').asText(), "module.exports = 'bar'\n")
     t.equal(zip.file('main2.js').asText(), "module.exports = 'bar'\n")
+  }).catch(function (err) {
+    console.log('err', err)
   })
 
   function contents (zip) {

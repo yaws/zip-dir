@@ -5,6 +5,7 @@
 import archiver from 'archiver'
 import concat from 'concat-stream'
 import isFunction from '@f/is-function'
+import isUndefined from '@f/is-undefined'
 
 /**
  * Zip a directory
@@ -13,20 +14,21 @@ import isFunction from '@f/is-function'
  */
 
 function zipDir (src) {
-  return new Promise(function (resolve, reject) {
+  return new Promise((resolve, reject) => {
     let archive = archiver('zip')
     archive.on('error', reject)
     archive.pipe(concat(resolve))
 
     if (isFunction(src)) {
       src({
-        directory: function (dir) {
-          archive.directory(dir, false)
+        directory: (dir, dest) => {
+          dest = isUndefined(dest) ? false : dest
+          archive.directory(dir, dest)
         },
-        file: function (source, name) {
+        file: (source, name) => {
           archive.file(source, {name: name})
         },
-        append: function (source, name) {
+        append: (source, name) => {
           archive.append(source, {name: name})
         }
       })

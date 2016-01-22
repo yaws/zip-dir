@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@f/is-function": "^1.1.1",
+    "@f/is-undefined": "^1.1.1",
     "archiver": "^0.21.0",
     "concat-stream": "^1.5.1"
   },
