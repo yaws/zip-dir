@@ -47,8 +47,8 @@ function content (zip) {
 - `src` {String} - Path to the directory to zip.
 - `src` {Function} - The function defines the sources using the zip api that is passed to it. The functions signature is `src(zip)`. `zip` has three methods:
     - `directory(path, dest)`
-    - `file(path, name)`
-    - `append(src, name)`
+    - `file(path, opts|name)`
+    - `append(src, opts|name)`
 
 **Returns:** a promise for a buffer of the zipped contents
 
