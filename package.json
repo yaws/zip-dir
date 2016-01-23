@@ -21,7 +21,9 @@
     "babel-cli": "^6.4.0",
     "babel-preset-es2015": "^6.3.13",
     "babel-register": "^6.3.13",
+    "folder-walker": "^1.2.1",
     "jszip": "^2.5.0",
-    "tape": "^4.2.2"
+    "tape": "^4.2.2",
+    "through2": "^2.0.0"
   }
 }
